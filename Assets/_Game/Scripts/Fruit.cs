@@ -6,6 +6,7 @@ public class Fruit : MonoBehaviour
 {
     private Rigidbody2D myRb;
     [SerializeField]private float startForce;
+    public GameObject fruitSliced;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,6 @@ public class Fruit : MonoBehaviour
     }
     private void ApplyForce()
     {
-        myRb.AddForce(transform.up * startForce, ForceMode2D.Impulse);
+        myRb.AddForce(transform.up * Random.Range(startForce-6,startForce), ForceMode2D.Impulse);
     }
 }
