@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameController : MonoBehaviour
 {
@@ -11,9 +12,14 @@ public class GameController : MonoBehaviour
     [HideInInspector]public Color32 orangeColor = new Color32(215,119,36,255);
     [HideInInspector]public Color32 pineappleColor = new Color32(203,168,25,255);
     [HideInInspector]public Color32 pearColor = new Color32(245,233,174,255);
+    [HideInInspector] public int score;
+
+    private UIController uIController;
     // Start is called before the first frame update
     void Start()
     {
+        uIController=FindObjectOfType<UIController>();
+        score=0;
         
     }
 
@@ -21,5 +27,10 @@ public class GameController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void StartGame()
+    {
+        uIController.txtScore.text = "Score: " + score;
     }
 }
