@@ -8,6 +8,7 @@ public class Fruit : MonoBehaviour
     [SerializeField]private float startForce;
     public GameObject fruitSliced;
     private GameController gameController;
+    public int points;
 
     // Start is called before the first frame update
     void Start()

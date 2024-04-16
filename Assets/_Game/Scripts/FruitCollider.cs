@@ -23,6 +23,7 @@ public class FruitCollider : MonoBehaviour
             tempSplash.GetComponentInChildren<SpriteRenderer>().color = fruit.ChangeSplashColor(this.gameObject);
             tempFruitSliced.transform.GetChild(0).GetComponent<Rigidbody>().AddForce(-tempFruitSliced.transform.GetChild(0).transform.right * Random.Range(5f,10f), ForceMode.Impulse);
             tempFruitSliced.transform.GetChild(1).GetComponent<Rigidbody>().AddForce(tempFruitSliced.transform.GetChild(1).transform.right * Random.Range(5f,10f), ForceMode.Impulse);
+            gameController.UpdateScore(fruit.points);
             Destroy(tempFruitSliced, 5f);
             Destroy(tempSplash, Random.Range(10f,20f));
             Destroy(this.gameObject);
