@@ -9,23 +9,29 @@ public class Fruit : MonoBehaviour
     public GameObject fruitSliced;
     private GameController gameController;
     public int points;
+    private float sentidoRotation;
 
     // Start is called before the first frame update
     void Start()
     {
         myRb= this.gameObject.GetComponent<Rigidbody2D>();
         gameController = FindObjectOfType<GameController>();
+        sentidoRotation= Random.Range(-1f, 1f);
         ApplyForce();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        float speed = Random.Range(250f, 450f);
+        speed *= sentidoRotation;
+        myRb.transform.Rotate(new Vector3(0f, speed, speed) * Time.deltaTime);
     }
     private void ApplyForce()
     {
+        
         myRb.AddForce(transform.up * Random.Range(startForce-6,startForce), ForceMode2D.Impulse);
+        
     }
     public Color32 ChangeSplashColor(GameObject GO)
     {

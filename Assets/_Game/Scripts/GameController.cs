@@ -12,7 +12,8 @@ public class GameController : MonoBehaviour
     [HideInInspector]public Color32 orangeColor = new Color32(215,119,36,255);
     [HideInInspector]public Color32 pineappleColor = new Color32(203,168,25,255);
     [HideInInspector]public Color32 pearColor = new Color32(245,233,174,255);
-    [HideInInspector] public int score;
+    [HideInInspector]public Color32 uiRedColor = new Color32(255,0,0,255);
+    [HideInInspector] public int score,fruitCount;
 
     private UIController uIController;
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class GameController : MonoBehaviour
     {
         uIController=FindObjectOfType<UIController>();
         score=0;
+        fruitCount=0;
         
     }
 
