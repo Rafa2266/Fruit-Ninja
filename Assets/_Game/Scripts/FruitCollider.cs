@@ -27,16 +27,16 @@ public class FruitCollider : MonoBehaviour
             tempFruitSliced.transform.GetChild(1).GetComponent<Rigidbody>().AddForce(tempFruitSliced.transform.GetChild(1).transform.right * Random.Range(5f,10f), ForceMode.Impulse);
             gameController.UpdateScore(fruit.points);
             Destroy(tempFruitSliced, 5f);
-            Destroy(tempSplash, Random.Range(10f,20f));
+            //Destroy(tempSplash, Random.Range(10f,20f));
             Destroy(this.gameObject);
         }
         if (target.gameObject.CompareTag("Destroyer")){
             gameController.fruitCount++;
             uiController.imagLifes[gameController.fruitCount - 1].color = gameController.uiRedColor;
+            Destroy(this.gameObject);
             if (gameController.fruitCount >= 3)
             {
-                Debug.Log("Game Over");
-                Time.timeScale = 0f;
+                uiController.ShowPanelGameOver();
             }
         }
     }

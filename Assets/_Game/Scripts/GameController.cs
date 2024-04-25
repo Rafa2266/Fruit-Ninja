@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
     [HideInInspector]public Color32 uiRedColor = new Color32(255,0,0,255);
     [HideInInspector] public int score,fruitCount;
 
+    [SerializeField] private GameObject fruitSpawner,blade,destroyer;
+
     private UIController uIController;
     // Start is called before the first frame update
     void Start()
@@ -39,5 +41,11 @@ public class GameController : MonoBehaviour
     {
         score+=points;
         uIController.txtScore.text = "Score: " + score.ToString();
+    }
+    public void GameOver()
+    {
+        fruitSpawner.SetActive(false);
+        blade.SetActive(false);
+        destroyer.SetActive(false);
     }
 }
