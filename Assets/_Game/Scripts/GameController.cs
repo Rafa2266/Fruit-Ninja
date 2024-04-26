@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SocialPlatforms.Impl;
@@ -13,6 +14,8 @@ public class GameController : MonoBehaviour
     [HideInInspector]public Color32 pineappleColor = new Color32(203,168,25,255);
     [HideInInspector]public Color32 pearColor = new Color32(245,233,174,255);
     [HideInInspector]public Color32 uiRedColor = new Color32(255,0,0,255);
+    [HideInInspector]public Color32 uiWhiteColor = new Color32(255,255,255,255);
+
     [HideInInspector] public int score,fruitCount;
 
     [SerializeField] private GameObject fruitSpawner,blade,destroyer;
@@ -47,5 +50,27 @@ public class GameController : MonoBehaviour
         fruitSpawner.SetActive(false);
         blade.SetActive(false);
         destroyer.SetActive(false);
+    }
+
+    public void RestartGame()
+    {
+        score=0;
+        uIController.txtScore.text = "Score: " + score.ToString();
+        fruitCount =0;
+        fruitSpawner.SetActive(true);
+        GameObject[] clones,bombs;
+        clones = GameObject.FindGameObjectsWithTag("Clone");
+        bombs = GameObject.FindGameObjectsWithTag("Bomb");
+        foreach (GameObject clone in clones)
+        {
+            Destroy(clone);
+        }
+        foreach (GameObject bomb in bombs)
+        {
+            Destroy(bomb);
+        }
+        fruitSpawner.GetComponent<FruitSpawner>().Restart();
+        blade.SetActive(true);
+        destroyer.SetActive(true);
     }
 }

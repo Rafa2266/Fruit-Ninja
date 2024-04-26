@@ -41,5 +41,6 @@ public class Bomb : MonoBehaviour
         CircleCollider2D myCollider=this.gameObject.GetComponent<CircleCollider2D>();
         myCollider.enabled= false;
         GameObject tempLightBeam= Instantiate(lightBeam,this.transform.position,Quaternion.identity) as GameObject;
+        Destroy(tempLightBeam,8f);
     }
 }

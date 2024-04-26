@@ -13,6 +13,10 @@ public class FruitSpawner : MonoBehaviour
     {
         StartCoroutine(Spawn());
     }
+    public void Restart()
+    {
+        StartCoroutine(Spawn());
+    }
     private IEnumerator Spawn()
     {
         while (true)
@@ -24,7 +28,7 @@ public class FruitSpawner : MonoBehaviour
             Transform spawnPoint= spawnPoints[spawnIndex];
 
             GameObject fruitPrefab = Instantiate(fruitsPrefab[Random.Range(0, fruitsPrefab.Length)], spawnPoint.position, spawnPoint.rotation);
-            //Destroy(fruitPrefab,5f);
+            Destroy(fruitPrefab,7f);
         }
     }
 

@@ -1055,6 +1055,9 @@ MonoBehaviour:
   uiRedColor:
     serializedVersion: 2
     rgba: 4278190335
+  uiWhiteColor:
+    serializedVersion: 2
+    rgba: 4294967295
   score: 0
   fruitCount: 0
   fruitSpawner: {fileID: 249371573}
@@ -1621,7 +1624,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1902864571}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: ButtonClosePanelPause
+        m_MethodName: ButtonRestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
