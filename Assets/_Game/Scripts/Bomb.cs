@@ -9,11 +9,13 @@ public class Bomb : MonoBehaviour
     [SerializeField] private GameObject lightBeam;
     private Rigidbody2D myRb;
     private float sentidoRotation;
+    private AudioController audioController;
     void Start()
     {
         myRb = this.gameObject.GetComponent<Rigidbody2D>();
         ApplyForce();
         sentidoRotation = Random.Range(-1f, 1f);
+        audioController = FindObjectOfType<AudioController>();
     }
 
     // Update is called once per frame
@@ -36,11 +38,14 @@ public class Bomb : MonoBehaviour
     public void BombGameOver()
     {
         speed= 0f;
+        
         myRb.bodyType = RigidbodyType2D.Kinematic;
         myRb.simulated = false;
         CircleCollider2D myCollider=this.gameObject.GetComponent<CircleCollider2D>();
         myCollider.enabled= false;
         GameObject tempLightBeam= Instantiate(lightBeam,this.transform.position,Quaternion.identity) as GameObject;
+        this.GetComponent<AudioSource>().clip = audioController.bombExplodeAudio;
+        this.GetComponent<AudioSource>().Play();
         Destroy(tempLightBeam,8f);
     }
 }

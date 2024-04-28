@@ -7,18 +7,25 @@ public class FruitCollider : MonoBehaviour
     private Fruit fruit;
     private GameController gameController;
     private UIController uiController;
+    private AudioController audioController;
     // Start is called before the first frame update
     void Start()
     {
         fruit= this.gameObject.GetComponent<Fruit>();
         gameController=FindObjectOfType<GameController>();
         uiController=FindObjectOfType<UIController>();
+        audioController=FindObjectOfType<AudioController>();
     }
 
     private void OnTriggerEnter2D(Collider2D target)
     {
         if (target.gameObject.CompareTag("Blade")){
+            target.GetComponent<AudioSource>().clip = audioController.bladeAudio[Random.Range(0, audioController.bladeAudio.Length)];
+            target.GetComponent<AudioSource>().Play();
+
             GameObject tempFruitSliced = Instantiate(fruit.fruitSliced,transform.position,Quaternion.identity);
+            tempFruitSliced.GetComponent<AudioSource>().clip = audioController.fruitSplashAudio[Random.Range(0, audioController.fruitSplashAudio.Length)];
+            tempFruitSliced.GetComponent<AudioSource>().Play();
             Vector3 positionSplash = tempFruitSliced.transform.position;
             positionSplash.z = 5;
             GameObject tempSplash = Instantiate(gameController.splash, positionSplash, Quaternion.identity);
