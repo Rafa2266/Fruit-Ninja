@@ -6,7 +6,8 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
-    public TMP_Text txtScore, txtHighScore;
+    public TMP_Text txtScore,txtScoreGameOver;
+    [SerializeField] private TMP_Text[] txtHighScores;
     public Image[] imagLifes;
     public Button btnpause, btnResume, btnBackMainMenu, btnClosePauseMenu, btnSounds;
     public GameObject panelGame, PanelPause, panelGameOver;
@@ -58,6 +59,13 @@ public class UIController : MonoBehaviour
         for(int i=0; i<imagLifes.Length;i++)
         {
             imagLifes[i].color = gameController.uiWhiteColor;
+        }
+    }
+    public void ChangeHighScoreText(int score)
+    {
+        foreach(TMP_Text txtHighScore in txtHighScores)
+        {
+            txtHighScore.text = "Highscore: " + score;
         }
     }
 }

@@ -7,25 +7,32 @@ public class FruitSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] fruitsPrefab;
     [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private float minDelay, maxDelay;
+    [SerializeField] private float minDelay, maxDelay,increaseDifficult;
+    private float maxDelayTemp;
     private AudioController audioController;
 
     // Start is called before the first frame update
     void Start()
     {
         audioController = FindObjectOfType<AudioController>();
+        maxDelayTemp = maxDelay;
         StartCoroutine(Spawn());
     }
     public void Restart()
     {
+        maxDelayTemp = maxDelay;
         StartCoroutine(Spawn());
     }
     private IEnumerator Spawn()
     {
         while (true)
         {
-            float delay = Random.Range(minDelay, maxDelay);
+            float delay = Random.Range(minDelay, maxDelayTemp);
             yield return new WaitForSeconds(delay);
+            if(maxDelayTemp>minDelay*5)
+            {
+                maxDelayTemp -= increaseDifficult;
+            }
             
             int spawnIndex=Random.Range(0, spawnPoints.Length);
             Transform spawnPoint= spawnPoints[spawnIndex];
@@ -41,7 +48,6 @@ public class FruitSpawner : MonoBehaviour
             }
             spawnPoint.GetComponent<AudioSource>().Play();
 
-            //spawnPoint.GetComponent<AudioSource>().Play();
             Destroy(fruitPrefab,7f);
         }
     }
