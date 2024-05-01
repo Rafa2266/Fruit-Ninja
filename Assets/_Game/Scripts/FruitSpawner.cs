@@ -41,12 +41,10 @@ public class FruitSpawner : MonoBehaviour
             fruitPrefab.transform.parent = gameController.allObjects;
             if (fruitPrefab.CompareTag("Bomb"))
             {
-                Debug.Log("oi2");
                 spawnPoint.GetComponent<AudioSource>().clip = audioController.bombThrow;
             }
             else
             {
-                Debug.Log("oi");
                 spawnPoint.GetComponent<AudioSource>().clip = audioController.fruitThrow;
             }
             spawnPoint.GetComponent<AudioSource>().Play();
