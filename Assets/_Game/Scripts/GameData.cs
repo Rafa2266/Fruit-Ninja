@@ -32,6 +32,6 @@ public class GameData : MonoBehaviour
     }
     public int GetSounds()
     {
-        return PlayerPrefs.GetInt("sounds");
+        return PlayerPrefs.GetInt("sounds")!=0? PlayerPrefs.GetInt("sounds"):2;
     }
 }

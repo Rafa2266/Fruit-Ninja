@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour
     private void Initialize()
     {
         int sounds =gameData.GetSounds();
-        if(sounds==0)
+        if(sounds==1)
         {
             soundOnOff = false;
             
@@ -115,11 +115,11 @@ public class GameController : MonoBehaviour
     {
         if (soundOnOff)
         {
-            gameData.SavedSounds(1);
+            gameData.SavedSounds(2);
         }
         else
         {
-            gameData.SavedSounds(0);
+            gameData.SavedSounds(1);
         }
     }
 
