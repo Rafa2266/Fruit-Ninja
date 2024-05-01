@@ -958,7 +958,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1902864571}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: ButtonPauseGame
+        m_MethodName: ButtonExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4686,7 +4686,7 @@ MonoBehaviour:
   - {fileID: 7992261262357575805, guid: f11ccccd4b441c54d899378086c3ce19, type: 3}
   - {fileID: 2634096321322716347, guid: 80610c2990f7f5c43b04fee44812bd9a, type: 3}
   - {fileID: -3755678972820979490, guid: 29ee6c49a12d0404e9473a56fed6a80f, type: 3}
-  musicVolume: 0.2
+  musicVolume: 0.05
   soundVolume: 0.1
 --- !u!4 &1923833388
 Transform:

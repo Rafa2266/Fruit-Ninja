@@ -131,4 +131,10 @@ public class UIController : MonoBehaviour
         txtScore.text = "Score: " + gameController.score.ToString();
 
     }
+
+    public void ButtonExitGame()
+    {
+        AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+        activity.Call<bool>("moveTaskToBack", true);
+    }
 }
