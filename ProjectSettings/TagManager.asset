@@ -45,3 +45,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3437946507
+    locked: 0
+  - name: Splash
+    uniqueID: 1273993173
+    locked: 0
+  - name: LightBeam
+    uniqueID: 3446379749
+    locked: 0
+  - name: Blade
+    uniqueID: 3035969133
+    locked: 0

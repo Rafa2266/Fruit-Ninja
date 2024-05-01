@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameData : MonoBehaviour
 {
@@ -24,5 +25,13 @@ public class GameData : MonoBehaviour
     public int GetScore()
     {
         return PlayerPrefs.GetInt("highscore");
+    }
+    public void SavedSounds(int value)
+    {
+        PlayerPrefs.SetInt("sounds", value);
+    }
+    public int GetSounds()
+    {
+        return PlayerPrefs.GetInt("sounds");
     }
 }

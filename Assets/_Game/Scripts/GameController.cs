@@ -23,13 +23,20 @@ public class GameController : MonoBehaviour
     private UIController uIController;
     private GameData gameData;
     private int highscore;
+
+    public Transform allObjects, allSplashes, allSlicedFruits;
+    [HideInInspector]public bool soundOnOff;
+    private AudioController audioController;
     // Start is called before the first frame update
     void Start()
     {
         uIController=FindObjectOfType<UIController>();
         gameData=FindObjectOfType<GameData>();
-        score=0;
+        audioController = FindObjectOfType<AudioController>();
+        score =0;
         fruitCount=0;
+        soundOnOff = true;
+        Initialize();
         highscore=gameData.GetScore();
         uIController.ChangeHighScoreText(highscore);
         
@@ -40,10 +47,30 @@ public class GameController : MonoBehaviour
     {
         
     }
+    private void Initialize()
+    {
+        int sounds =gameData.GetSounds();
+        if(sounds==0)
+        {
+            soundOnOff = false;
+            
+        }
+        else
+        {
+            soundOnOff= true;
+        }
+        uIController.ChangeSounds(soundOnOff);
+        audioController.EnableAndDisableAudio(soundOnOff,allObjects);
+    }
 
     public void StartGame()
     {
-        uIController.txtScore.text = "Score: " + score.ToString();
+        score = 0;
+        fruitCount = 0;
+        fruitSpawner.SetActive(true);
+        fruitSpawner.GetComponent<FruitSpawner>().Restart();
+        blade.SetActive(true);
+        destroyer.SetActive(true);
     }
     public void UpdateScore(int points)
     {
@@ -67,7 +94,6 @@ public class GameController : MonoBehaviour
     public void RestartGame()
     {
         score=0;
-        uIController.txtScore.text = "Score: " + score.ToString();
         fruitCount =0;
         fruitSpawner.SetActive(true);
         GameObject[] clones,bombs;
@@ -84,5 +110,36 @@ public class GameController : MonoBehaviour
         fruitSpawner.GetComponent<FruitSpawner>().Restart();
         blade.SetActive(true);
         destroyer.SetActive(true);
+    }
+    public void SoundsData()
+    {
+        if (soundOnOff)
+        {
+            gameData.SavedSounds(1);
+        }
+        else
+        {
+            gameData.SavedSounds(0);
+        }
+    }
+
+    public void BackMainMenu()
+    {
+        score= 0;
+        fruitCount=0;
+        fruitSpawner.SetActive(false); 
+        destroyer.SetActive(false);
+        blade.SetActive(false);
+        GameObject[] clones, bombs;
+        clones = GameObject.FindGameObjectsWithTag("Clone");
+        bombs = GameObject.FindGameObjectsWithTag("Bomb");
+        foreach (GameObject clone in clones)
+        {
+            Destroy(clone);
+        }
+        foreach (GameObject bomb in bombs)
+        {
+            Destroy(bomb);
+        }
     }
 }

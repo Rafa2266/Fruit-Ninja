@@ -10,13 +10,15 @@ public class FruitSpawner : MonoBehaviour
     [SerializeField] private float minDelay, maxDelay,increaseDifficult;
     private float maxDelayTemp;
     private AudioController audioController;
+    private GameController gameController;
 
     // Start is called before the first frame update
     void Start()
     {
         audioController = FindObjectOfType<AudioController>();
-        maxDelayTemp = maxDelay;
-        StartCoroutine(Spawn());
+        gameController = FindObjectOfType<GameController>();
+        //maxDelayTemp = maxDelay;
+        //StartCoroutine(Spawn());
     }
     public void Restart()
     {
@@ -38,6 +40,7 @@ public class FruitSpawner : MonoBehaviour
             Transform spawnPoint= spawnPoints[spawnIndex];
 
             GameObject fruitPrefab = Instantiate(fruitsPrefab[Random.Range(0, fruitsPrefab.Length)], spawnPoint.position, spawnPoint.rotation);
+            fruitPrefab.transform.parent = gameController.allObjects;
             if (fruitPrefab.CompareTag("Bomb"))
             {
                 spawnPoint.GetComponent<AudioSource>().clip = audioController.bombThrow;

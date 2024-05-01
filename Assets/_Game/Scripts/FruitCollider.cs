@@ -24,17 +24,19 @@ public class FruitCollider : MonoBehaviour
             target.GetComponent<AudioSource>().Play();
 
             GameObject tempFruitSliced = Instantiate(fruit.fruitSliced,transform.position,Quaternion.identity);
+            tempFruitSliced.transform.parent = gameController.allSlicedFruits;
             tempFruitSliced.GetComponent<AudioSource>().clip = audioController.fruitSplashAudio[Random.Range(0, audioController.fruitSplashAudio.Length)];
             tempFruitSliced.GetComponent<AudioSource>().Play();
             Vector3 positionSplash = tempFruitSliced.transform.position;
             positionSplash.z = 5;
             GameObject tempSplash = Instantiate(gameController.splash, positionSplash, Quaternion.identity);
+            tempSplash.transform.parent = gameController.allSplashes;
             tempSplash.GetComponentInChildren<SpriteRenderer>().color = fruit.ChangeSplashColor(this.gameObject);
             tempFruitSliced.transform.GetChild(0).GetComponent<Rigidbody>().AddForce(-tempFruitSliced.transform.GetChild(0).transform.right * Random.Range(5f,10f), ForceMode.Impulse);
             tempFruitSliced.transform.GetChild(1).GetComponent<Rigidbody>().AddForce(tempFruitSliced.transform.GetChild(1).transform.right * Random.Range(5f,10f), ForceMode.Impulse);
             gameController.UpdateScore(fruit.points);
             Destroy(tempFruitSliced, 5f);
-            //Destroy(tempSplash, Random.Range(10f,20f));
+            Destroy(tempSplash, Random.Range(3f,6f));
             Destroy(this.gameObject);
         }
         if (target.gameObject.CompareTag("Destroyer")){

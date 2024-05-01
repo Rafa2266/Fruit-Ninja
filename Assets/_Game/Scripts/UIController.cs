@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class UIController : MonoBehaviour
 {
     public TMP_Text txtScore,txtScoreGameOver;
     [SerializeField] private TMP_Text[] txtHighScores;
     public Image[] imagLifes;
-    public Button btnpause, btnResume, btnBackMainMenu, btnClosePauseMenu, btnSounds;
-    public GameObject panelGame, PanelPause, panelGameOver;
+    public Button btnpause, btnResume, btnBackMainMenu, btnClosePauseMenu, btnSounds,btnSoundsMainMenu;
+    public GameObject panelGame, PanelPause, panelGameOver, panelMainMenu;
     private GameController gameController;
+    private AudioController audioController;
+    public Sprite soundOn,soundOff;
     // Start is called before the first frame update
     void Start()
     {
-        panelGame.SetActive(true);
+        panelGame.SetActive(false);
+        panelMainMenu.SetActive(true);
+        panelGameOver.SetActive(false);
         PanelPause.SetActive(false);
         gameController=FindObjectOfType<GameController>();
+        audioController=FindObjectOfType<AudioController>();
     }
 
     // Update is called once per frame
@@ -25,6 +31,7 @@ public class UIController : MonoBehaviour
     {
         
     }
+    
     public void ButtonPauseGame()
     {
         panelGame.SetActive(false);
@@ -37,6 +44,7 @@ public class UIController : MonoBehaviour
         panelGame.SetActive(true);
         PanelPause.SetActive(false);
         Time.timeScale = 1f;
+        
     }
     public void ShowPanelGameOver()
     {
@@ -56,7 +64,8 @@ public class UIController : MonoBehaviour
         panelGameOver.SetActive(false);
         panelGame.SetActive(true);
         gameController.RestartGame();
-        for(int i=0; i<imagLifes.Length;i++)
+        txtScore.text = "Score: " + gameController.score.ToString();
+        for (int i=0; i<imagLifes.Length;i++)
         {
             imagLifes[i].color = gameController.uiWhiteColor;
         }
@@ -67,5 +76,59 @@ public class UIController : MonoBehaviour
         {
             txtHighScore.text = "Highscore: " + score;
         }
+    }
+    public void ButtonSounds()
+    {
+        if(gameController.soundOnOff)
+        {
+            gameController.soundOnOff = false;
+            btnSounds.GetComponent<Image>().sprite = soundOff;
+            btnSoundsMainMenu.GetComponent<Image>().sprite = soundOff;
+        }
+        else
+        {
+            gameController.soundOnOff = true;
+            btnSounds.GetComponent<Image>().sprite = soundOn;
+            btnSoundsMainMenu.GetComponent<Image>().sprite = soundOn;
+        }
+        audioController.EnableAndDisableAudio(gameController.soundOnOff,gameController.allObjects);
+        gameController.SoundsData();
+    }
+    public void ChangeSounds(bool soundOnOff)
+    {
+        if (!soundOnOff)
+        {
+            btnSounds.GetComponent<Image>().sprite = soundOff;
+            btnSoundsMainMenu.GetComponent<Image>().sprite = soundOff;
+        }
+        else
+        {
+            btnSounds.GetComponent<Image>().sprite = soundOn;
+            btnSoundsMainMenu.GetComponent<Image>().sprite = soundOn;
+        }
+        
+    }
+
+    public void ButtonBackMainMenu()
+    {
+        panelGame.SetActive(false);
+        panelMainMenu.SetActive(true);
+        panelGameOver.SetActive(false);
+        PanelPause.SetActive(false);
+        Time.timeScale = 1f;
+        gameController.BackMainMenu();
+        for (int i = 0; i < imagLifes.Length; i++)
+        {
+            imagLifes[i].color = gameController.uiWhiteColor;
+        }
+    }
+
+    public void ButttonStartGame()
+    {
+        panelGame.SetActive(true);
+        panelMainMenu.SetActive(false);
+        gameController.StartGame();
+        txtScore.text = "Score: " + gameController.score.ToString();
+
     }
 }
